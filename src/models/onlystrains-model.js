@@ -1,34 +1,36 @@
-const mongoose = require('mongoose');
-const { Schema } = mongoose; 
+'use strict';
 
-const OnlystrainSchema = new Schema({
-  name: {type: String, required: true},
-  thc: {type: Number, required: true},
-  cbg: {type: Number, required: true},
-  effects: {type: Object, required: true},
-  flavors: {type: Object, required: true},
-  image: {type: String, required: true},
-  email: {type: String, required: true}
-});
+module.exports = (sequelize, DataTypes) => {
+  const OnlyStrain = sequelize.define('OnlyStrain', {
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    thc: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
+    },
+    cbg: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
+    },
+    effects: {
+      type: DataTypes.JSON,
+      allowNull: false,
+    },
+    flavors: {
+      type: DataTypes.JSON,
+      allowNull: false,
+    },
+    image: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    }
+  });
 
-const OnlyStrain = mongoose.model('OnlyStrain', OnlystrainSchema);
-
-module.exports = OnlyStrain
-
-
-// module.exports = (sequelize, DataTypes) => {
-//   return sequelize.define('clothes', {
-//     name: {
-//       type: DataTypes.STRING,
-//       allowNull: false,
-//     },
-//     price: {
-//       type: DataTypes.INTEGER,
-//       allowNull: false,
-//     },
-//     description: {
-//       type: DataTypes.STRING,
-//       allowNull: false,
-//     },
-//   });
-// };
+  return OnlyStrain;
+};
