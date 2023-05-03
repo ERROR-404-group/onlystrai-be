@@ -14,3 +14,21 @@ const OnlystrainSchema = new Schema({
 const OnlyStrain = mongoose.model('OnlyStrain', OnlystrainSchema);
 
 module.exports = OnlyStrain
+
+
+// module.exports = (sequelize, DataTypes) => {
+//   return sequelize.define('clothes', {
+//     name: {
+//       type: DataTypes.STRING,
+//       allowNull: false,
+//     },
+//     price: {
+//       type: DataTypes.INTEGER,
+//       allowNull: false,
+//     },
+//     description: {
+//       type: DataTypes.STRING,
+//       allowNull: false,
+//     },
+//   });
+// };
