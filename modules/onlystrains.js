@@ -1,32 +1,10 @@
 const axios = require('axios');
 const cache = require('.cache.js');
-// const mongoose = require('mongoose');
-
 const { onlystrainsModel } = require('../models'); 
-
-// const db = mongoose.connection;
-// db.on('error', console.error.bind(console, 'connection error'));
-// db.once('open', function () {
-//   console.log('Mongoose is connected');
-// });
-
-// mongoose.connect(process.env.DB_URL);
-
-// class OnlyStrain {
-//   constructor(OnlyStrainObject) {
-//     this.name = OnlyStrainObject.name,
-//     this.thc = OnlyStrainObject.thc,
-//     this.cbg = OnlyStrainObject.cbg,
-//     this.effects = OnlyStrainObject.effects,
-//     this.flavors = OnlyStrainObject.flavors,
-//     this.image = OnlyStrainObject.image.large;
-//   }
-// }
 
 async function getOnlystrain(req, res, next) {
   let Onlystrain = req.query.name;
   console.log(Onlystrain);
-  // https://api.Onlystraintcg.io/v2/cards?q=name:gardevoir
   let config = {
     baseURL: 'https://rapidapi.com/raygorodskij/api/Strain/',
     params: {
@@ -58,4 +36,72 @@ async function getOnlystrain(req, res, next) {
   }
 }
 
-module.exports = getOnlystrain;
+async function createOnlystrain(req, res, next) {
+  try {
+    const { name, thc, cbg, effects, flavors, image } = req.body;
+    const newOnlystrain = await onlystrainsModel.create({
+      name,
+      thc,
+      cbg,
+      effects,
+      flavors,
+      image,
+    });
+    res.status(201).send(newOnlystrain);
+  } catch (err) {
+    console.log(err);
+    next(err);
+  }
+}
+
+async function getOnlystrains(req, res, next) {
+  try {
+    const Onlystrains = await onlystrainsModel.find({});
+    res.status(200).send(Onlystrains);
+  } catch (err) {
+    console.log(err);
+    next(err);
+  }
+}
+
+async function updateOnlystrain(req, res, next) {
+  try {
+    const { id } = req.params;
+    const { name, thc, cbg, effects, flavors, image } = req.body;
+    const updatedOnlystrain = await onlystrainsModel.findByIdAndUpdate(
+      id,
+      {
+        name,
+        thc,
+        cbg,
+        effects,
+        flavors,
+        image,
+      },
+      { new: true }
+    );
+    res.status(200).send(updatedOnlystrain);
+  } catch (err) {
+    console.log(err);
+    next(err);
+  }
+}
+
+async function deleteOnlystrain(req, res, next) {
+  try {
+    const { id } = req.params;
+    const deletedOnlystrain = await onlystrainsModel.findByIdAndDelete(id);
+    res.status(200).send(deletedOnlystrain);
+  } catch (err) {
+    console.log(err);
+    next(err);
+  }
+}
+
+module.exports = {
+  getOnlystrain,
+  createOnlystrain,
+  getOnlystrains,
+  updateOnlystrain,
+  deleteOnlystrain,
+};
