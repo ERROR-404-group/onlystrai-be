@@ -2,12 +2,12 @@
 
 const express = require('express');
 
-const { onlystrainsModel } = require('../models');
+const { onlystrainsModel } = require('../src/models');
 
 
 const router = express.Router();
 
-router.get('/onlystrains', async (req, res, next) => {
+router.get('/onlystrains', async (req, res) => {
   const onlystrains = await onlystrainsModel.findAll();
   res.status(200).send(onlystrains);
 });
@@ -23,7 +23,7 @@ router.post('/onlystrains', async (req, res, next) => {
 });
 
 
-router.get('/onlystrains/:id', async (req, res, next) => {
+router.get('/onlystrains/:id', async (req, res) => {
   const id = req.params.id;
   const onlystrains = await onlystrainsModel.findByPk(id);
   res.status(200).send(onlystrains);
@@ -31,7 +31,6 @@ router.get('/onlystrains/:id', async (req, res, next) => {
 
 router.put('/onlystrains/:id', async (req, res, next) => {
   try {
-   
     const updatedonlystrains = await onlystrainsModel.update(req.body, {where: {id: req.params.id}});
     res.status(200).send(updatedonlystrains);
   } catch (err) {
@@ -41,7 +40,6 @@ router.put('/onlystrains/:id', async (req, res, next) => {
 
 router.delete('/onlystrains/:id', async (req, res, next) => {
   try {
-    
     await onlystrainsModel.destroy({where: {id: req.params.id}});
     res.status(200).send('Deleted');
   } catch (err) {

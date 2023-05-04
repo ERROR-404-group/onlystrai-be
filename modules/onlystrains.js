@@ -1,25 +1,27 @@
 const axios = require('axios');
 const cache = require('.cache.js');
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
 
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error'));
-db.once('open', function () {
-  console.log('Mongoose is connected');
-});
+const { onlystrainsModel } = require('../models'); 
 
-mongoose.connect(process.env.DB_URL);
+// const db = mongoose.connection;
+// db.on('error', console.error.bind(console, 'connection error'));
+// db.once('open', function () {
+//   console.log('Mongoose is connected');
+// });
 
-class OnlyStrain {
-  constructor(OnlyStrainObject) {
-    this.name = OnlyStrainObject.name,
-    this.thc = OnlyStrainObject.thc,
-    this.cbg = OnlyStrainObject.cbg,
-    this.effects = OnlyStrainObject.effects,
-    this.flavors = OnlyStrainObject.flavors,
-    this.image = OnlyStrainObject.image.large;
-  }
-}
+// mongoose.connect(process.env.DB_URL);
+
+// class OnlyStrain {
+//   constructor(OnlyStrainObject) {
+//     this.name = OnlyStrainObject.name,
+//     this.thc = OnlyStrainObject.thc,
+//     this.cbg = OnlyStrainObject.cbg,
+//     this.effects = OnlyStrainObject.effects,
+//     this.flavors = OnlyStrainObject.flavors,
+//     this.image = OnlyStrainObject.image.large;
+//   }
+// }
 
 async function getOnlystrain(req, res, next) {
   let Onlystrain = req.query.name;

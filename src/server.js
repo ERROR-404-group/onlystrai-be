@@ -8,12 +8,12 @@ const notFound = require('./error-handlers/404');
 const app = express();
 const logger = require('../src/middleware/LOGGER.JS');
 const validator = require('./middleware/validator');
-
+const router = require (`../routes/onlystrains.js`);
 
 
 app.use(express.json());
 app.use(logger);
-
+app.use(router);
 app.get('/', (req, res) => {
 
   const message = `Welcome to my server`;
@@ -22,7 +22,6 @@ app.get('/', (req, res) => {
 });
 
 app.get('/person', validator, (req, res) => {
-  
   // if (!req.query.personName){
   //   next();
   //   return;
