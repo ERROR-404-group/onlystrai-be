@@ -22,7 +22,7 @@ const userSchema = (sequelize, DataTypes) => {
     user.password = hashedPass;
   });
 
-  // Basic AUTH: Validating strings (username, password) 
+  // Basic AUTH: Validating strings (username, password)
   model.authenticateBasic = async function (username, password) {
     const user = await this.findOne({ where: { username } });
     const valid = await bcrypt.compare(password, user.password);
@@ -34,7 +34,6 @@ const userSchema = (sequelize, DataTypes) => {
   model.authenticateToken = async function (token) {
     try {
       const parsedToken = jwt.verify(token, process.env.SECRET);
-  
       const user = await this.findOne({ where: { username: parsedToken.username } });
 
       if (user) { return user; }
@@ -42,7 +41,7 @@ const userSchema = (sequelize, DataTypes) => {
     } catch (e) {
       throw new Error(e.message);
     }
-  }
+  };
 
   return model;
 };
