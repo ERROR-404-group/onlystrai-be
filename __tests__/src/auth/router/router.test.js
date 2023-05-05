@@ -4,8 +4,7 @@ process.env.SECRET = "TEST_SECRET";
 
 const { db } = require('../../../../src/auth/models');
 const supertest = require('supertest');
-const server = require('../../../../src/server.js').server;
-
+const server = require('../../../../server').app;
 const mockRequest = supertest(server);
 
 let userData = {

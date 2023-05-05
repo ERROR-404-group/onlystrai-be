@@ -1,18 +1,22 @@
 'use strict';
 
+require('dotenv').config();
 const express = require('express');
 const errorHandler = require('./src/error-handlers/500');
 
 const PORT = process.env.PORT || 3002;
 const notFound = require('./src/error-handlers/404');
-const app = express();
+// const app = express();
 const logger = require('./src/middleware/logger.js');
 const validator = require('./src/middleware/validator');
 const router = require (`./routes/onlystrains.js`);
+const auth = require ('./src/auth/router/index');
 
 
+const app = express();
 app.use(express.json());
 app.use(logger);
+app.use(auth);
 app.use(router);
 app.get('/', (req, res) => {
 
